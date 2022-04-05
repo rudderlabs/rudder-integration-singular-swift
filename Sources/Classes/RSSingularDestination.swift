@@ -50,11 +50,10 @@ class RSSingularDestination: RSDestinationPlugin {
     }
     
     func track(message: TrackMessage) -> TrackMessage? {
-        if (!message.event.isEmpty) {
+        if !message.event.isEmpty {
             if let properties = message.properties, properties.count > 0 {
                 // If it is a revenue event
-                if let revenue: Double = properties["revenue"] as? Double,
-                   (revenue != 0) {
+                if let revenue: Double = properties["revenue"] as? Double, revenue != 0 {
                     let currency: String = properties["currency"] as? String ?? "USD"
                     Singular.customRevenue(message.event, currency: currency, amount: revenue)
                     return message
@@ -68,7 +67,7 @@ class RSSingularDestination: RSDestinationPlugin {
     }
     
     func screen(message: ScreenMessage) -> ScreenMessage? {
-        if (!message.name.isEmpty) {
+        if !message.name.isEmpty {
             if let properties = message.properties {
                 Singular.event("screen view \(message.name)", withArgs: properties)
             }
