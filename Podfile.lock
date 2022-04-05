@@ -1,0 +1,32 @@
+PODS:
+  - RudderSingular (1.0.0):
+    - RudderStack
+    - Singular-SDK (= 11.0.4)
+  - RudderStack (1.0.0-beta.2)
+  - Singular-SDK (11.0.4):
+    - Singular-SDK/Main (= 11.0.4)
+  - Singular-SDK/Main (11.0.4)
+
+DEPENDENCIES:
+  - RudderSingular (from `.`)
+  - RudderStack (from `~/Documents/Rudder/rudder-sdk-swift/`)
+  - Singular-SDK (= 11.0.4)
+
+SPEC REPOS:
+  trunk:
+    - Singular-SDK
+
+EXTERNAL SOURCES:
+  RudderSingular:
+    :path: "."
+  RudderStack:
+    :path: "~/Documents/Rudder/rudder-sdk-swift/"
+
+SPEC CHECKSUMS:
+  RudderSingular: c27f06260fb07aa6beffcb2a4c8d2ccd82f23abe
+  RudderStack: a8d61f92379d6b230a6c7ff302e7f923db5329fc
+  Singular-SDK: 614350e3ed21a06b02ab165b370b212f8aaacf2b
+
+PODFILE CHECKSUM: ba6425c375a3820522e9603ed8201d19a515e778
+
+COCOAPODS: 1.11.2
