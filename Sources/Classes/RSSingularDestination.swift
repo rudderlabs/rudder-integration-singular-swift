@@ -54,12 +54,13 @@ class RSSingularDestination: RSDestinationPlugin {
             if let properties = message.properties, properties.count > 0 {
                 // If it is a revenue event
                 if let revenue: Double = properties["revenue"] as? Double,
-                    (revenue != 0),
-                    let currency: String = properties["currency"] as? String {
-                    let currency = currency ?? "USD"
+                   (revenue != 0) {
+                    let currency: String = properties["currency"] as? String ?? "USD"
                     Singular.customRevenue(message.event, currency: currency, amount: revenue)
+                    return message
                 }
                 Singular.event(message.event, withArgs: properties)
+                return message
             }
             Singular.event(message.event)
         }
@@ -69,7 +70,7 @@ class RSSingularDestination: RSDestinationPlugin {
     func screen(message: ScreenMessage) -> ScreenMessage? {
         if (!message.name.isEmpty) {
             if let properties = message.properties {
-                Singular.event("screen view " + message.name, withArgs: properties)
+                Singular.event("screen view \(message.name)", withArgs: properties)
             }
         } else {
             client?.log(message: "Event name is not present.", logLevel: .debug)

@@ -19,8 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+//        identifierForVendor()
+        
         RudderSingularDestination().setSKANOptions(skAdNetworkEnabled: true, isManualSkanConversionManagementMode: true, withWaitForTrackingAuthorizationWithTimeoutInterval: 0, withConversionValueUpdatedHandler: { (num:Int) -> () in
-            print (num)
+            // Receive a callback whenever the Conversion Value is updated
+            print("Your SKAN handler \(num)")
         })
         
         let config: RSConfig = RSConfig(writeKey: "27COeQCO3BS2WMw8CJUqYRC5hL7")
@@ -32,17 +35,59 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         client = RSClient(config: config)
         
         client?.add(destination: RudderSingularDestination())
-        client?.track("Order Completed1", properties: [
-            "Key" : "value",
-            "value" : 56.7
-        ])
         
-        client?.identify("user 12", traits: [
-            "Key" : "Value"
-        ], option: nil)
+        sendEvents()
         
         return true
     }
+    
+    func sendEvents() {
+        sendIdentifyEvents()
+        sendTrackEvents()
+        sendScreenEvents()
+    }
+    
+    func sendScreenEvents() {
+        client?.screen("Custom screen event with properties", properties: [
+            "Key-1": "value-1",
+            "Key-2": "value-2",
+        ])
+    }
+    
+    func sendTrackEvents() {
+        client?.track("Empty track events")
+        // Revenue Event
+        client?.track("Order Completed", properties: [
+            "revenue": 1000.0,
+            "currency": "INR",
+        ])
+        client?.track("Checkout Started", properties: [
+            "Key" : "Value",
+            "order_id" : "12345",
+            "Key-1": "value-1",
+            "Key-2": "value-2",
+            "products" : [[
+                "productId":123,
+                "name":"Random Name",
+                "sku":"123",
+                "price":123.45,
+                "quantity":"20",
+                "category":"Shopping",
+                "url":"www.example.com",
+                "image_url":"www.example.com",
+            ]]
+        ], option: nil)
+    }
+    
+    func sendIdentifyEvents() {
+        client?.identify("iOS User")
+    }
+    
+    // Needed only for testing: This IDFV key needs to be registered at Singular for testing
+    func identifierForVendor() {
+        print(UIDevice.current.identifierForVendor?.uuidString ?? "IDFV value is not generated")
+    }
+    
 
     // MARK: UISceneSession Lifecycle
 
