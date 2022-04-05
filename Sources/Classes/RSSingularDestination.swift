@@ -92,12 +92,12 @@ public class RudderSingularDestination: RudderDestination {
     }
     
     public func setSKANOptions(skAdNetworkEnabled: Bool, isManualSkanConversionManagementMode manualMode: Bool,
-                               withWaitForTrackingAuthorizationWithTimeoutInterval waitTrackingAuthorizationWithTimeoutInterval: (NSNumber),
+                               withWaitForTrackingAuthorizationWithTimeoutInterval waitTrackingAuthorizationWithTimeoutInterval: NSNumber?,
     withConversionValueUpdatedHandler conversionValueUpdatedHandler: @escaping (NSInteger) -> Void) {
         isSKANEnabled = skAdNetworkEnabled
         isManualMode = manualMode;
         conversionValueUpdatedCallback = conversionValueUpdatedHandler
-        waitForTrackingAuthorizationWithTimeoutInterval = (waitTrackingAuthorizationWithTimeoutInterval) is NSNumber ? Int(waitTrackingAuthorizationWithTimeoutInterval):0;
+        waitForTrackingAuthorizationWithTimeoutInterval = waitTrackingAuthorizationWithTimeoutInterval?.intValue ?? 0
     }
     
 }
