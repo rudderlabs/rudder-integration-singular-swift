@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3F35896554F1186DD6FC61CE /* Pods_RudderSingular.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FC1CFA3E81EDA126F535AF6 /* Pods_RudderSingular.framework */; };
 		ED2A28F82770570400646788 /* RudderSingular.h in Headers */ = {isa = PBXBuildFile; fileRef = ED2A28F72770570400646788 /* RudderSingular.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EDF68FE727D1FD620005AAC6 /* RSSingularDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF68FE627D1FD620005AAC6 /* RSSingularDestination.swift */; };
+		FD8A74BA44B0F7526B6A07E6 /* Pods_RudderSingular.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2D3FC49945EA9118A437A89 /* Pods_RudderSingular.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0FC1CFA3E81EDA126F535AF6 /* Pods_RudderSingular.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RudderSingular.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4E0389CB168C19BE21469AD8 /* Pods-RudderSingular.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RudderSingular.release.xcconfig"; path = "Target Support Files/Pods-RudderSingular/Pods-RudderSingular.release.xcconfig"; sourceTree = "<group>"; };
-		EC142A3B66773A04AA556BEA /* Pods-RudderSingular.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RudderSingular.debug.xcconfig"; path = "Target Support Files/Pods-RudderSingular/Pods-RudderSingular.debug.xcconfig"; sourceTree = "<group>"; };
+		18F6C8D5A5EFF7BFD371C3F0 /* Pods-RudderSingular.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RudderSingular.debug.xcconfig"; path = "Target Support Files/Pods-RudderSingular/Pods-RudderSingular.debug.xcconfig"; sourceTree = "<group>"; };
+		1953DF33A2F0C3D61D4E6D51 /* Pods-RudderSingular.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RudderSingular.release.xcconfig"; path = "Target Support Files/Pods-RudderSingular/Pods-RudderSingular.release.xcconfig"; sourceTree = "<group>"; };
+		A2D3FC49945EA9118A437A89 /* Pods_RudderSingular.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RudderSingular.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED2A28EB2770560400646788 /* RudderSingular.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RudderSingular.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED2A28F72770570400646788 /* RudderSingular.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RudderSingular.h; sourceTree = "<group>"; };
 		ED2A28FA2770591E00646788 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -30,7 +30,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F35896554F1186DD6FC61CE /* Pods_RudderSingular.framework in Frameworks */,
+				FD8A74BA44B0F7526B6A07E6 /* Pods_RudderSingular.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,16 +40,16 @@
 		208F25C796D8593BF8DAB48E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				EC142A3B66773A04AA556BEA /* Pods-RudderSingular.debug.xcconfig */,
-				4E0389CB168C19BE21469AD8 /* Pods-RudderSingular.release.xcconfig */,
+				18F6C8D5A5EFF7BFD371C3F0 /* Pods-RudderSingular.debug.xcconfig */,
+				1953DF33A2F0C3D61D4E6D51 /* Pods-RudderSingular.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		548B89E3A605E408B1218FA0 /* Frameworks */ = {
+		7E0239965FFF8180EB820885 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0FC1CFA3E81EDA126F535AF6 /* Pods_RudderSingular.framework */,
+				A2D3FC49945EA9118A437A89 /* Pods_RudderSingular.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -64,7 +64,7 @@
 				ED2A28F52770570400646788 /* Sources */,
 				ED2A28EC2770560400646788 /* Products */,
 				208F25C796D8593BF8DAB48E /* Pods */,
-				548B89E3A605E408B1218FA0 /* Frameworks */,
+				7E0239965FFF8180EB820885 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -119,8 +119,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = ED2A28F22770560400646788 /* Build configuration list for PBXNativeTarget "RudderSingular" */;
 			buildPhases = (
-				E588B50E25B5CFA099A4AC2A /* [CP] Check Pods Manifest.lock */,
+				F22532A41303889EED1E2BD4 /* [CP] Check Pods Manifest.lock */,
 				ED2A28E62770560400646788 /* Headers */,
+				8CFC551428042AB000C41CEA /* Swift Lint */,
 				ED2A28E72770560400646788 /* Sources */,
 				ED2A28E82770560400646788 /* Frameworks */,
 				ED2A28E92770560400646788 /* Resources */,
@@ -178,7 +179,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		E588B50E25B5CFA099A4AC2A /* [CP] Check Pods Manifest.lock */ = {
+		8CFC551428042AB000C41CEA /* Swift Lint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Swift Lint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		F22532A41303889EED1E2BD4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -338,7 +357,7 @@
 		};
 		ED2A28F32770560400646788 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EC142A3B66773A04AA556BEA /* Pods-RudderSingular.debug.xcconfig */;
+			baseConfigurationReference = 18F6C8D5A5EFF7BFD371C3F0 /* Pods-RudderSingular.debug.xcconfig */;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ENABLE_MODULES = YES;
@@ -371,7 +390,7 @@
 		};
 		ED2A28F42770560400646788 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4E0389CB168C19BE21469AD8 /* Pods-RudderSingular.release.xcconfig */;
+			baseConfigurationReference = 1953DF33A2F0C3D61D4E6D51 /* Pods-RudderSingular.release.xcconfig */;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ENABLE_MODULES = YES;

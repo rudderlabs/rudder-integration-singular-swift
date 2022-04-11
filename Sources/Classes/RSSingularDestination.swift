@@ -11,8 +11,7 @@ import Singular
 
 var isSKANEnabled: Bool = false
 var isManualMode: Bool = false
-var conversionValueUpdatedCallback = { (_:Int) -> () in return}
-
+var conversionValueUpdatedCallback = { (_:Int) -> Void in return}
 var waitForTrackingAuthorizationWithTimeoutInterval: Int = 0
 var isInitialized: Bool = false
 
@@ -21,19 +20,19 @@ class RSSingularDestination: RSDestinationPlugin {
     let key = "Singular"
     var client: RSClient?
     var controller = RSController()
-        
+
     func update(serverConfig: RSServerConfig, type: UpdateType) {
         guard type == .initial else { return }
         if let destination = serverConfig.getDestination(by: key) {
             if let apiKey = destination.config?.dictionaryValue?["apiKey"] as? String, let apiSecret = destination.config?.dictionaryValue?["apiSecret"] as? String {
-                
+
                 let config: SingularConfig = SingularConfig.init(apiKey: apiKey, andSecret: apiSecret)
-                
-                config.skAdNetworkEnabled = isSKANEnabled;
-                config.manualSkanConversionManagement = isManualMode;
-                config.conversionValueUpdatedCallback = conversionValueUpdatedCallback;
-                config.waitForTrackingAuthorizationWithTimeoutInterval = waitForTrackingAuthorizationWithTimeoutInterval;
-                
+
+                config.skAdNetworkEnabled = isSKANEnabled
+                config.manualSkanConversionManagement = isManualMode
+                config.conversionValueUpdatedCallback = conversionValueUpdatedCallback
+                config.waitForTrackingAuthorizationWithTimeoutInterval = waitForTrackingAuthorizationWithTimeoutInterval
+
                 Singular.start(config)
                 client?.log(message: "Initializing Singular SDK", logLevel: .debug)
             } else {
@@ -41,14 +40,14 @@ class RSSingularDestination: RSDestinationPlugin {
             }
         }
     }
-    
+
     func identify(message: IdentifyMessage) -> IdentifyMessage? {
         if let userId = message.userId, !userId.isEmpty {
             Singular.setCustomUserId(userId)
         }
         return message
     }
-    
+
     func track(message: TrackMessage) -> TrackMessage? {
         if !message.event.isEmpty {
             if let properties = message.properties, properties.count > 0 {
@@ -65,7 +64,7 @@ class RSSingularDestination: RSDestinationPlugin {
         }
         return message
     }
-    
+
     func screen(message: ScreenMessage) -> ScreenMessage? {
         if !message.name.isEmpty {
             if let properties = message.properties {
@@ -76,7 +75,7 @@ class RSSingularDestination: RSDestinationPlugin {
         }
         return message
     }
-    
+
     func reset() {
         Singular.unsetCustomUserId()
         client?.log(message: "Reset API is called.", logLevel: .debug)
@@ -85,19 +84,18 @@ class RSSingularDestination: RSDestinationPlugin {
 
 @objc
 public class RudderSingularDestination: RudderDestination {
-    
+
     public override init() {
         super.init()
         plugin = RSSingularDestination()
     }
-    
+
     public func setSKANOptions(skAdNetworkEnabled: Bool, isManualSkanConversionManagementMode manualMode: Bool,
                                withWaitForTrackingAuthorizationWithTimeoutInterval waitTrackingAuthorizationWithTimeoutInterval: NSNumber?,
-    withConversionValueUpdatedHandler conversionValueUpdatedHandler: @escaping (NSInteger) -> Void) {
+                               withConversionValueUpdatedHandler conversionValueUpdatedHandler: @escaping (NSInteger) -> Void) {
         isSKANEnabled = skAdNetworkEnabled
-        isManualMode = manualMode;
+        isManualMode = manualMode
         conversionValueUpdatedCallback = conversionValueUpdatedHandler
         waitForTrackingAuthorizationWithTimeoutInterval = waitTrackingAuthorizationWithTimeoutInterval?.intValue ?? 0
     }
-    
 }
