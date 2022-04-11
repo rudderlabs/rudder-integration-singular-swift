@@ -11,8 +11,6 @@ Pod::Spec.new do |s|
     s.source           = { :git => 'https://github.com/rudderlabs/rudder-singular-ios.git' , :tag => 'v#{s.version}'}
     
     s.ios.deployment_target = '13.0'
-    s.osx.deployment_target   = '10.13'
-    s.tvos.deployment_target  = '11.0'
 
     s.pod_target_xcconfig = {
       'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64'
