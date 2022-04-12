@@ -23,22 +23,19 @@ class RSSingularDestination: RSDestinationPlugin {
 
     func update(serverConfig: RSServerConfig, type: UpdateType) {
         guard type == .initial else { return }
-        if let destination = serverConfig.getDestination(by: key) {
-            if let apiKey = destination.config?.dictionaryValue?["apiKey"] as? String, let apiSecret = destination.config?.dictionaryValue?["apiSecret"] as? String {
-
-                let config: SingularConfig = SingularConfig.init(apiKey: apiKey, andSecret: apiSecret)
-
-                config.skAdNetworkEnabled = isSKANEnabled
-                config.manualSkanConversionManagement = isManualMode
-                config.conversionValueUpdatedCallback = conversionValueUpdatedCallback
-                config.waitForTrackingAuthorizationWithTimeoutInterval = waitForTrackingAuthorizationWithTimeoutInterval
-
-                Singular.start(config)
-                client?.log(message: "Initializing Singular SDK", logLevel: .debug)
-            } else {
-                client?.log(message: "Failed to Initialize Singular Factory", logLevel: .warning)
-            }
+        guard let singularConfig: SingularConfigs = serverConfig.getConfig(forPlugin: self) else {
+            client?.log(message: "Failed to Initialize Singular Factory", logLevel: .warning)
+            return
         }
+        let config: SingularConfig = SingularConfig.init(apiKey: singularConfig.apiKey, andSecret: singularConfig.apiSecret)
+
+        config.skAdNetworkEnabled = isSKANEnabled
+        config.manualSkanConversionManagement = isManualMode
+        config.conversionValueUpdatedCallback = conversionValueUpdatedCallback
+        config.waitForTrackingAuthorizationWithTimeoutInterval = waitForTrackingAuthorizationWithTimeoutInterval
+
+        Singular.start(config)
+        client?.log(message: "Initializing Singular SDK", logLevel: .debug)
     }
 
     func identify(message: IdentifyMessage) -> IdentifyMessage? {
@@ -81,6 +78,24 @@ class RSSingularDestination: RSDestinationPlugin {
         client?.log(message: "Reset API is called.", logLevel: .debug)
     }
 }
+
+struct SingularConfigs: Codable {
+    private let _apiKey: String?
+    var apiKey: String {
+        return _apiKey ?? ""
+    }
+    
+    private let _apiSecret: String?
+    var apiSecret: String {
+        return _apiSecret ?? ""
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case _apiKey = "apiKey"
+        case _apiSecret = "apiSecret"
+    }
+}
+
 
 @objc
 public class RudderSingularDestination: RudderDestination {
