@@ -2,7 +2,7 @@
 //  AppDelegate.h
 //  SampleAppObjC
 //
-//  Created by Pallab Maiti on 11/03/22.
+//  Created by Abhishek Pandey on 11/03/22.
 //
 
 #import <UIKit/UIKit.h>

@@ -2,7 +2,7 @@
 //  RudderSingular.h
 //  RudderSingular
 //
-//  Created by Pallab Maiti on 20/12/21.
+//  Created by Abhishek Pandey on 20/12/21.
 //
 
 #import <Foundation/Foundation.h>

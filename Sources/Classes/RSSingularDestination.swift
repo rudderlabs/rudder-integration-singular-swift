@@ -2,7 +2,7 @@
 //  RSFirebaseDestination.swift
 //  RudderFirebase
 //
-//  Created by Pallab Maiti on 04/03/22.
+//  Created by Abhishek Pandey on 04/03/22.
 //
 
 import Foundation
