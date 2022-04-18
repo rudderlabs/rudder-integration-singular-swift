@@ -135,8 +135,8 @@ open class RudderSingularConfig: NSObject {
 open class RudderSingularDestination: RudderDestination {
 
     @objc
-    public init(rudderSingularConfig: RudderSingularConfig) {
+    public init(rudderSingularConfig: RudderSingularConfig?) {
         super.init()
-        plugin = RSSingularDestination(rudderSingularConfig: rudderSingularConfig)
+        plugin = RSSingularDestination(rudderSingularConfig: rudderSingularConfig ?? RudderSingularConfig())
     }
 }
