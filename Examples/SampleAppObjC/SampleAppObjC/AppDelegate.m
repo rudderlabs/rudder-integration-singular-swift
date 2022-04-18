@@ -8,7 +8,7 @@
 #import "AppDelegate.h"
 
 @import RudderStack;
-@import RudderFirebase;
+@import RudderSingular;
 
 @interface AppDelegate ()
 
@@ -27,8 +27,16 @@
     
     RSClient *client = [[RSClient alloc] initWithConfig:config];
     
-    [client addWithDestination:[[RudderFirebaseDestination alloc] init]];
-    [client track:@"Track 1" properties:NULL option:NULL];
+    RudderSingularConfig *rudderSingularConfig = [[RudderSingularConfig alloc] init];
+    [rudderSingularConfig skAdNetworkEnabled:YES];
+    [rudderSingularConfig manualSkanConversionManagement:YES];
+    [rudderSingularConfig conversionValueUpdatedCallback:^(NSInteger value) {
+        printf("Your SKAN handler %ld", value);
+    }];
+    [rudderSingularConfig waitForTrackingAuthorizationWithTimeoutInterval:0];
+    [client addDestination:[[RudderSingularDestination alloc] initWithRudderSingularConfig:rudderSingularConfig]];
+    
+    [client track:@"Track 1"];
     return YES;
 }
 
