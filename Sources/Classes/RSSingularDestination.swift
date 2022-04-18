@@ -22,7 +22,7 @@ class RSSingularDestination: RSDestinationPlugin {
 
     func update(serverConfig: RSServerConfig, type: UpdateType) {
         guard type == .initial else { return }
-        guard let singularConfig: SingularServerConfig = serverConfig.getConfig(forPlugin: self) else {
+        guard let singularConfig: RudderSingularServerConfig = serverConfig.getConfig(forPlugin: self) else {
             client?.log(message: "Failed to Initialize Singular Factory", logLevel: .warning)
             return
         }
@@ -82,7 +82,7 @@ class RSSingularDestination: RSDestinationPlugin {
     }
 }
 
-struct SingularServerConfig: Codable {
+struct RudderSingularServerConfig: Codable {
     private let _apiKey: String?
     var apiKey: String {
         return _apiKey ?? ""
