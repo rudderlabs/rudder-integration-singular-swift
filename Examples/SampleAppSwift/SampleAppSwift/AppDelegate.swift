@@ -21,15 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 //        identifierForVendor()
 
-        RudderSingularDestination().setSKANOptions(
-            skAdNetworkEnabled: true,
-            isManualSkanConversionManagementMode: true,
-            withWaitForTrackingAuthorizationWithTimeoutInterval: 0,
-            withConversionValueUpdatedHandler: { (num: Int) -> Void in
-                // Receive a callback whenever the Conversion Value is updated
-                print("Your SKAN handler \(num)")
-        })
-
         let config: RSConfig = RSConfig(writeKey: "27COeQCO3BS2WMw8CJUqYRC5hL7")
             .dataPlaneURL("https://rudderstacbumvdrexzj.dataplane.rudderstack.com")
             .loglevel(.none)
@@ -38,7 +29,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         client = RSClient(config: config)
 
-        client?.addDestination(RudderSingularDestination())
+        let rudderSingularConfig = RudderSingularConfig()
+            .skAdNetworkEnabled(true)
+            .manualSkanConversionManagement(true)
+            .conversionValueUpdatedCallback({ value in
+                print("Your SKAN handler \(value)")
+            })
+            .waitForTrackingAuthorizationWithTimeoutInterval(0)
+        
+        client?.addDestination(RudderSingularDestination(rudderSingularConfig: rudderSingularConfig))
 
         sendEvents()
 
@@ -63,7 +62,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Revenue Event
         client?.track("Order Completed", properties: [
             "revenue": 1000.0,
-            "currency": "INR"
+            "currency": "INR",
+            "Key-1": "value-1",
+            "Key-2": "value-2"
         ])
         client?.track("Checkout Started", properties: [
             "Key": "Value",

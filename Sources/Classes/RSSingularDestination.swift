@@ -9,30 +9,29 @@ import Foundation
 import RudderStack
 import Singular
 
-var isSKANEnabled: Bool = false
-var isManualMode: Bool = false
-var conversionValueUpdatedCallback = { (_:Int) -> Void in return}
-var waitForTrackingAuthorizationWithTimeoutInterval: Int = 0
-var isInitialized: Bool = false
-
 class RSSingularDestination: RSDestinationPlugin {
     let type = PluginType.destination
     let key = "Singular"
     var client: RSClient?
     var controller = RSController()
+    let rudderSingularConfig: RudderSingularConfig
+    
+    init(rudderSingularConfig: RudderSingularConfig) {
+        self.rudderSingularConfig = rudderSingularConfig
+    }
 
     func update(serverConfig: RSServerConfig, type: UpdateType) {
         guard type == .initial else { return }
-        guard let singularConfig: SingularConfigs = serverConfig.getConfig(forPlugin: self) else {
+        guard let singularConfig: SingularServerConfig = serverConfig.getConfig(forPlugin: self) else {
             client?.log(message: "Failed to Initialize Singular Factory", logLevel: .warning)
             return
         }
-        let config: SingularConfig = SingularConfig.init(apiKey: singularConfig.apiKey, andSecret: singularConfig.apiSecret)
+        let config: SingularConfig = SingularConfig(apiKey: singularConfig.apiKey, andSecret: singularConfig.apiSecret)
 
-        config.skAdNetworkEnabled = isSKANEnabled
-        config.manualSkanConversionManagement = isManualMode
-        config.conversionValueUpdatedCallback = conversionValueUpdatedCallback
-        config.waitForTrackingAuthorizationWithTimeoutInterval = waitForTrackingAuthorizationWithTimeoutInterval
+        config.skAdNetworkEnabled = rudderSingularConfig.skAdNetworkEnabled
+        config.manualSkanConversionManagement = rudderSingularConfig.manualSkanConversionManagement
+        config.conversionValueUpdatedCallback = rudderSingularConfig.conversionValueUpdatedCallback
+        config.waitForTrackingAuthorizationWithTimeoutInterval = rudderSingularConfig.waitForTrackingAuthorizationWithTimeoutInterval
 
         Singular.start(config)
         client?.log(message: "Initializing Singular SDK", logLevel: .debug)
@@ -47,17 +46,21 @@ class RSSingularDestination: RSDestinationPlugin {
 
     func track(message: TrackMessage) -> TrackMessage? {
         if !message.event.isEmpty {
-            if let properties = message.properties, properties.count > 0 {
-                // If it is a revenue event
-                if let revenue: Double = properties["revenue"] as? Double, revenue != 0 {
-                    let currency: String = properties["currency"] as? String ?? "USD"
-                    Singular.customRevenue(message.event, currency: currency, amount: revenue)
-                    return message
+            if let properties = message.properties, !properties.isEmpty {
+                for (key, value) in properties {
+                    // If it is a revenue event
+                    if key == RSKeys.Ecommerce.revenue {
+                        if let amount = Double("\(value)") {
+                            Singular.customRevenue(message.event, currency: properties[RSKeys.Ecommerce.currency] as? String ?? "USD", amount: amount)
+                        }
+                        break
+                    } else {
+                        Singular.event(message.event, withArgs: properties)
+                    }
                 }
-                Singular.event(message.event, withArgs: properties)
-                return message
+            } else {
+                Singular.event(message.event)
             }
-            Singular.event(message.event)
         }
         return message
     }
@@ -79,7 +82,7 @@ class RSSingularDestination: RSDestinationPlugin {
     }
 }
 
-struct SingularConfigs: Codable {
+struct SingularServerConfig: Codable {
     private let _apiKey: String?
     var apiKey: String {
         return _apiKey ?? ""
@@ -96,21 +99,43 @@ struct SingularConfigs: Codable {
     }
 }
 
+@objc
+open class RudderSingularConfig: NSObject {
+    var skAdNetworkEnabled: Bool = false
+    var manualSkanConversionManagement: Bool = false
+    var conversionValueUpdatedCallback: ((Int) -> Void) = { _ in }
+    var waitForTrackingAuthorizationWithTimeoutInterval: Int = 0
+    
+    @discardableResult @objc
+    public func skAdNetworkEnabled(_ skAdNetworkEnabled: Bool) -> RudderSingularConfig {
+        self.skAdNetworkEnabled = skAdNetworkEnabled
+        return self
+    }
+    
+    @discardableResult @objc
+    public func manualSkanConversionManagement(_ manualSkanConversionManagement: Bool) -> RudderSingularConfig {
+        self.manualSkanConversionManagement = manualSkanConversionManagement
+        return self
+    }
+    
+    @discardableResult @objc
+    public func conversionValueUpdatedCallback(_ conversionValueUpdatedCallback: @escaping ((Int) -> Void)) -> RudderSingularConfig {
+        self.conversionValueUpdatedCallback = conversionValueUpdatedCallback
+        return self
+    }
+    
+    @discardableResult @objc
+    public func waitForTrackingAuthorizationWithTimeoutInterval(_ waitForTrackingAuthorizationWithTimeoutInterval: Int) -> RudderSingularConfig {
+        self.waitForTrackingAuthorizationWithTimeoutInterval = waitForTrackingAuthorizationWithTimeoutInterval
+        return self
+    }
+}
 
 @objc
 public class RudderSingularDestination: RudderDestination {
 
-    public override init() {
+    public init(rudderSingularConfig: RudderSingularConfig) {
         super.init()
-        plugin = RSSingularDestination()
-    }
-
-    public func setSKANOptions(skAdNetworkEnabled: Bool, isManualSkanConversionManagementMode manualMode: Bool,
-                               withWaitForTrackingAuthorizationWithTimeoutInterval waitTrackingAuthorizationWithTimeoutInterval: NSNumber?,
-                               withConversionValueUpdatedHandler conversionValueUpdatedHandler: @escaping (NSInteger) -> Void) {
-        isSKANEnabled = skAdNetworkEnabled
-        isManualMode = manualMode
-        conversionValueUpdatedCallback = conversionValueUpdatedHandler
-        waitForTrackingAuthorizationWithTimeoutInterval = waitTrackingAuthorizationWithTimeoutInterval?.intValue ?? 0
+        plugin = RSSingularDestination(rudderSingularConfig: rudderSingularConfig)
     }
 }
