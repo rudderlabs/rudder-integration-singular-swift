@@ -25,7 +25,8 @@
     [config trackLifecycleEvents:YES];
     [config recordScreenViews:YES];
     
-    RSClient *client = [[RSClient alloc] initWithConfig:config];
+    RSClient *client = [RSClient sharedInstance];
+    [client configureWith:config];
     
     RudderSingularConfig *rudderSingularConfig = [[RudderSingularConfig alloc] init];
     [rudderSingularConfig skAdNetworkEnabled:YES];

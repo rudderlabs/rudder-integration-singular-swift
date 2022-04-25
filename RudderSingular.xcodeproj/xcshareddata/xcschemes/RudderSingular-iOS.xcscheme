@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "ED2A28EA2770560400646788"
                BuildableName = "RudderSingular.framework"
-               BlueprintName = "RudderSingular"
-               ReferencedContainer = "container:RudderSingular.xcodeproj">
+               BlueprintName = "RudderSingular1"
+               ReferencedContainer = "container:RudderSingular1.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -52,8 +52,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "ED2A28EA2770560400646788"
             BuildableName = "RudderSingular.framework"
-            BlueprintName = "RudderSingular"
-            ReferencedContainer = "container:RudderSingular.xcodeproj">
+            BlueprintName = "RudderSingular1"
+            ReferencedContainer = "container:RudderSingular1.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
