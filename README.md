@@ -36,9 +36,34 @@ This repository contains the resources and assets required to integrate the [Rud
 pod 'RudderSingular'
 ```
 
-3. Download the `GoogleService-Info.plist` from your Firebase console and place it in your project.
+## Step 2: Create the RudderSingularConfig object
 
-## Step 2: Initialize the RudderStack client (`RSClient`)
+Place the following in your ```AppDelegate``` under the ```didFinishLaunchingWithOptions``` method:
+
+### Objective C
+
+```objective-c
+RudderSingularConfig *rudderSingularConfig = [[RudderSingularConfig alloc] init];
+[rudderSingularConfig skAdNetworkEnabled:YES];
+[rudderSingularConfig manualSkanConversionManagement:YES];
+[rudderSingularConfig conversionValueUpdatedCallback:^(NSInteger value) {
+    printf("Your SKAN handler %ld", value);
+}];
+[rudderSingularConfig waitForTrackingAuthorizationWithTimeoutInterval:0];
+```
+### Swift
+
+```swift
+let rudderSingularConfig = RudderSingularConfig()
+    .skAdNetworkEnabled(true)
+    .manualSkanConversionManagement(true)
+    .conversionValueUpdatedCallback({ value in
+        print("Your SKAN handler \(value)")
+    })
+    .waitForTrackingAuthorizationWithTimeoutInterval(0)
+```
+
+## Step 3: Initialize the RudderStack client (`RSClient`)
 
 Place the following in your ```AppDelegate``` under the ```didFinishLaunchingWithOptions``` method:
 
@@ -48,7 +73,7 @@ Place the following in your ```AppDelegate``` under the ```didFinishLaunchingWit
 RSConfig *config = [[RSConfig alloc] initWithWriteKey:WRITE_KEY];
 [config dataPlaneURL:DATA_PLANE_URL];
 [[RSClient sharedInstance] configureWith:config];
-[[RSClient sharedInstance] addDestination:[[RudderSingularDestination alloc] init]];
+[[RSClient sharedInstance] addDestination:[[RudderSingularDestination alloc] initWithRudderSingularConfig:rudderSingularConfig]];
 ```
 ### Swift
 
@@ -56,10 +81,10 @@ RSConfig *config = [[RSConfig alloc] initWithWriteKey:WRITE_KEY];
 let config: RSConfig = RSConfig(writeKey: WRITE_KEY)
             .dataPlaneURL(DATA_PLANE_URL)
 RSClient.sharedInstance().configure(with: config)
-RSClient.sharedInstance().addDestination(RudderSingularDestination())
+RSClient.sharedInstance().addDestination(RudderSingularDestination(rudderSingularConfig: rudderSingularConfig))
 ```
 
-## Step 3: Send events
+## Step 4: Send events
 
 Follow the steps listed in the [RudderStack Swift SDK](https://github.com/rudderlabs/rudder-sdk-ios/tree/master-v2#sending-events) repo to start sending events to Singular.
 
