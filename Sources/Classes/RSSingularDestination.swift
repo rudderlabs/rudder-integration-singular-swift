@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import RudderStack
+import Rudder
 import Singular
 
 class RSSingularDestination: RSDestinationPlugin {

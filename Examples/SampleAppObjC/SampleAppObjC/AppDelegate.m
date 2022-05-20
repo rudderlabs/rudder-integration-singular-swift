@@ -7,7 +7,7 @@
 
 #import "AppDelegate.h"
 
-@import RudderStack;
+@import Rudder;
 @import RudderSingular;
 
 @interface AppDelegate ()

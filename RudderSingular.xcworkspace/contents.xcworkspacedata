@@ -2,18 +2,15 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/abhishekpandey/Documents/Rudder/Rudder-Integrations/iOS/Swift-Migration/rudder-integration-singular-swift/RudderSingular.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:Examples/SampleAppObjC/SampleAppObjC.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Examples/SampleAppSwift/SampleAppSwift.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Pods/Pods.xcodeproj">
+      location = "group:RudderSingular.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:RudderSingular.xcodeproj">
+      location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>

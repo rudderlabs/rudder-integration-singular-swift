@@ -7,9 +7,8 @@
 //
 
 import UIKit
-import RudderStack
+import Rudder
 import RudderSingular
-
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
