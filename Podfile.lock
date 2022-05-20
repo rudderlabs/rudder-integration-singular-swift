@@ -1,8 +1,9 @@
 PODS:
+  - Rudder (2.0.0)
   - RudderSingular (1.0.0):
-    - RudderStack
+    - Rudder (~> 2.0.0)
     - Singular-SDK (= 11.0.4)
-  - RudderStack (1.0.0-beta.5)
+  - RudderStack (1.0.0-beta.6)
   - Singular-SDK (11.0.4):
     - Singular-SDK/Main (= 11.0.4)
   - Singular-SDK/Main (11.0.4)
@@ -14,6 +15,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Rudder
     - Singular-SDK
 
 EXTERNAL SOURCES:
@@ -23,8 +25,9 @@ EXTERNAL SOURCES:
     :path: "~/Documents/Rudder/rudder-sdk-swift/"
 
 SPEC CHECKSUMS:
-  RudderSingular: cc918fb38958610f4745dde150b0e75c645f5ee2
-  RudderStack: 151db52fc1d2ccbba421c34c1916041d81cc6658
+  Rudder: 7d0ced414a4f7abd9cec6d12206ff93955f7d042
+  RudderSingular: 1f9ec40476148906a537aaabd8344e0aee04e674
+  RudderStack: 77457174f98752f9f3b4ce14160938ea06898829
   Singular-SDK: 614350e3ed21a06b02ab165b370b212f8aaacf2b
 
 PODFILE CHECKSUM: ba6425c375a3820522e9603ed8201d19a515e778
