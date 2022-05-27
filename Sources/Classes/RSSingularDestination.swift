@@ -67,8 +67,13 @@ class RSSingularDestination: RSDestinationPlugin {
 
     func screen(message: ScreenMessage) -> ScreenMessage? {
         if !message.name.isEmpty {
+            // Screen event with properties
             if let properties = message.properties {
                 Singular.event("screen view \(message.name)", withArgs: properties)
+            }
+            // Screen events without properties
+            else {
+                Singular.event("screen view \(message.name)")
             }
         } else {
             client?.log(message: "Event name is not present.", logLevel: .debug)
