@@ -16,7 +16,7 @@
   <b>
     <a href="https://rudderstack.com">Website</a>
     ·
-    <a href="https://rudderstack.com/docs/stream-sources/rudderstack-sdk-integration-guides/rudderstack-swift-sdk/">Documentation</a>
+    <a href="https://www.rudderstack.com/docs/stream-sources/rudderstack-sdk-integration-guides/rudderstack-ios-sdk/ios-v2/">Documentation</a>
     ·
     <a href="https://rudderstack.com/join-rudderstack-slack-community">Community Slack</a>
   </b>
@@ -27,25 +27,64 @@
 
 This repository contains the resources and assets required to integrate the [RudderStack iOS SDK](https://www.rudderstack.com/docs/stream-sources/rudderstack-sdk-integration-guides/rudderstack-ios-sdk/) with [Singular](https://www.singular.net/).
 
-| For more information on configuring Singular as a destination in RudderStack and the supported events and their mappings, refer to the [Singular documentation](https://www.rudderstack.com/docs/destinations/marketing/leanplum/).   |
-| :--|
+For more information on configuring Singular as a destination in RudderStack and the supported events and their mappings, refer to the [Singular documentation](https://www.rudderstack.com/docs/destinations/marketing/leanplum/).
+
+| Important: This device mode integration is supported for Singular v11.0.4 and above. |
+| :---|
 
 ## Step 1: Integrate the SDK with Singular
 
 1. Add [Singular](https://www.singular.net/) as a destination in the [RudderStack dashboard](https://app.rudderstack.com/).
-2. `RudderSinular` is available through [CocoaPods](https://cocoapods.org). To install it, add the following line to your Podfile and followed by `pod install`, as shown:
+2. `RudderSingular` is available through [CocoaPods](https://cocoapods.org). To install it, add the following line to your `Podfile`:
 
 ```ruby
-pod 'RudderSingular'
+pod 'RudderSingular', '~> 1.0.0'
 ```
 
-## Step 2: Create the RudderSingularConfig object
+3. Run the `pod install` command.
 
-Place the following in your ```AppDelegate``` under the ```didFinishLaunchingWithOptions``` method:
+## Step 2: Import the SDK
+
+### Swift
+
+```swift
+import RudderSingular
+```
 
 ### Objective C
 
 ```objective-c
+@import RudderSingular;
+```
+
+## Step 3: Initialize the RudderStack client (`RSClient`)
+
+Place the following code in your `AppDelegate` file under the `didFinishLaunchingWithOptions` method.
+
+### Swift
+
+```swift
+let config: RSConfig = RSConfig(writeKey: WRITE_KEY)
+            .dataPlaneURL(DATA_PLANE_URL)        
+
+RSClient.sharedInstance().configure(with: config)
+let rudderSingularConfig = RudderSingularConfig()
+            .skAdNetworkEnabled(true)
+            .manualSkanConversionManagement(true)
+            .conversionValueUpdatedCallback({ value in
+                print("Your SKAN handler \(value)")
+            })
+            .waitForTrackingAuthorizationWithTimeoutInterval(0)
+RSClient.sharedInstance().addDestination(RudderSingularDestination(rudderSingularConfig: rudderSingularConfig))
+```
+
+### Objective C
+
+```objective-c
+RSConfig *config = [[RSConfig alloc] initWithWriteKey:WRITE_KEY];
+[config dataPlaneURL:DATA_PLANE_URL];
+
+[[RSClient sharedInstance] configureWith:config];
 RudderSingularConfig *rudderSingularConfig = [[RudderSingularConfig alloc] init];
 [rudderSingularConfig skAdNetworkEnabled:YES];
 [rudderSingularConfig manualSkanConversionManagement:YES];
@@ -53,43 +92,12 @@ RudderSingularConfig *rudderSingularConfig = [[RudderSingularConfig alloc] init]
     printf("Your SKAN handler %ld", value);
 }];
 [rudderSingularConfig waitForTrackingAuthorizationWithTimeoutInterval:0];
-```
-### Swift
-
-```swift
-let rudderSingularConfig = RudderSingularConfig()
-    .skAdNetworkEnabled(true)
-    .manualSkanConversionManagement(true)
-    .conversionValueUpdatedCallback({ value in
-        print("Your SKAN handler \(value)")
-    })
-    .waitForTrackingAuthorizationWithTimeoutInterval(0)
-```
-
-## Step 3: Initialize the RudderStack client (`RSClient`)
-
-Place the following in your ```AppDelegate``` under the ```didFinishLaunchingWithOptions``` method:
-
-### Objective C
-
-```objective-c
-RSConfig *config = [[RSConfig alloc] initWithWriteKey:WRITE_KEY];
-[config dataPlaneURL:DATA_PLANE_URL];
-[[RSClient sharedInstance] configureWith:config];
-[[RSClient sharedInstance] addDestination:[[RudderSingularDestination alloc] initWithRudderSingularConfig:rudderSingularConfig]];
-```
-### Swift
-
-```swift
-let config: RSConfig = RSConfig(writeKey: WRITE_KEY)
-            .dataPlaneURL(DATA_PLANE_URL)
-RSClient.sharedInstance().configure(with: config)
-RSClient.sharedInstance().addDestination(RudderSingularDestination(rudderSingularConfig: rudderSingularConfig))
+[[RSClient sharedInstance] addDestination:[[RudderBugsnagDestination alloc] init]];
 ```
 
 ## Step 4: Send events
 
-Follow the steps listed in the [RudderStack Swift SDK](https://github.com/rudderlabs/rudder-sdk-ios/tree/master-v2#sending-events) repo to start sending events to Singular.
+Follow the steps listed in the [RudderStack iOS SDK](https://github.com/rudderlabs/rudder-sdk-ios/tree/master-v2#sending-events) repo to start sending events to Singular.
 
 ## About RudderStack
 
