@@ -92,7 +92,7 @@ RudderSingularConfig *rudderSingularConfig = [[RudderSingularConfig alloc] init]
     printf("Your SKAN handler %ld", value);
 }];
 [rudderSingularConfig waitForTrackingAuthorizationWithTimeoutInterval:0];
-[[RSClient sharedInstance] addDestination:[[RudderBugsnagDestination alloc] init]];
+[[RSClient sharedInstance] addDestination:[[RudderSingularDestination alloc] initWithRudderSingularConfig:rudderSingularConfig]];
 ```
 
 ## Step 4: Send events
