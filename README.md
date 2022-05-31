@@ -25,7 +25,7 @@
 ---
 # Integrating RudderStack iOS SDK with Singular
 
-This repository contains the resources and assets required to integrate the [RudderStack iOS SDK](https://www.rudderstack.com/docs/stream-sources/rudderstack-sdk-integration-guides/rudderstack-ios-sdk/) with [Singular](https://www.singular.net/).
+This repository contains the resources and assets required to integrate the [RudderStack iOS SDK](https://www.rudderstack.com/docs/stream-sources/rudderstack-sdk-integration-guides/rudderstack-ios-sdk/ios-v2/) with [Singular](https://www.singular.net/).
 
 For more information on configuring Singular as a destination in RudderStack and the supported events and their mappings, refer to the [Singular documentation](https://www.rudderstack.com/docs/destinations/analytics/singular/).
 
