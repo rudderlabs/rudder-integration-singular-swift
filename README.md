@@ -38,7 +38,7 @@ For more information on configuring Singular as a destination in RudderStack and
 2. `RudderSingular` is available through [CocoaPods](https://cocoapods.org). To install it, add the following line to your `Podfile`:
 
 ```ruby
-pod 'RudderSingular', '~> 1.0.0'
+pod 'RudderSingular', '~> 1.1.0'
 ```
 
 3. Run the `pod install` command.

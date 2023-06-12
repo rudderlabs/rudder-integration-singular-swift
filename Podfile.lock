@@ -1,19 +1,19 @@
 PODS:
-  - Rudder (2.0.0)
-  - RudderSingular (1.0.0):
-    - Rudder (~> 2.0.0)
+  - Rudder (2.4.0)
+  - RudderSingular (1.1.0):
+    - Rudder (~> 2.0)
     - Singular-SDK (= 11.0.4)
   - Singular-SDK (11.0.4):
     - Singular-SDK/Main (= 11.0.4)
   - Singular-SDK/Main (11.0.4)
 
 DEPENDENCIES:
-  - Rudder (~> 2.0.0)
+  - Rudder (~> 2.0)
   - RudderSingular (from `.`)
   - Singular-SDK (= 11.0.4)
 
 SPEC REPOS:
-  trunk:
+  https://github.com/CocoaPods/Specs.git:
     - Rudder
     - Singular-SDK
 
@@ -22,10 +22,10 @@ EXTERNAL SOURCES:
     :path: "."
 
 SPEC CHECKSUMS:
-  Rudder: 7d0ced414a4f7abd9cec6d12206ff93955f7d042
-  RudderSingular: 1f9ec40476148906a537aaabd8344e0aee04e674
+  Rudder: 7595af0282d02a88dd61816415d4b28cba16a195
+  RudderSingular: 5c3adb4300e9d1490121923a9d50d5c3aac080f0
   Singular-SDK: 614350e3ed21a06b02ab165b370b212f8aaacf2b
 
-PODFILE CHECKSUM: 05ca24fed79ee80dbc00f983e2595415f97640d6
+PODFILE CHECKSUM: 93638ad2d17f914326c7ee175a8e0d1fdc41f5bc
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.1
