@@ -29,7 +29,7 @@ This repository contains the resources and assets required to integrate the [Rud
 
 For more information on configuring Singular as a destination in RudderStack and the supported events and their mappings, refer to the [Singular documentation](https://www.rudderstack.com/docs/destinations/analytics/singular/).
 
-| Important: This device mode integration is supported for Singular v11.0.4 and above. |
+| Important: This device mode integration is supported for Singular v12.5.0 and above. |
 | :---|
 
 ## Step 1: Integrate the SDK with Singular
@@ -38,7 +38,7 @@ For more information on configuring Singular as a destination in RudderStack and
 2. `RudderSingular` is available through [CocoaPods](https://cocoapods.org). To install it, add the following line to your `Podfile`:
 
 ```ruby
-pod 'RudderSingular', '~> 1.1.0'
+pod 'RudderSingular', '~> 1.2.0'
 ```
 
 3. Run the `pod install` command.
