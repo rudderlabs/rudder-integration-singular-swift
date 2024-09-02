@@ -14,7 +14,7 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(name: "Singular", url: "https://github.com/singular-labs/Singular-iOS-SDK", "11.0.4"..<"11.0.5"),
+        .package(name: "Singular", url: "https://github.com/singular-labs/Singular-iOS-SDK", "12.5.0"..<"13.0.0"),
         .package(name: "Rudder", url: "https://github.com/rudderlabs/rudder-sdk-ios", from: "2.0.0"),
     ],
     targets: [
